@@ -30,11 +30,22 @@ package com.narxoz.rpg.combat;
  */
 public interface Ability {
 
-    // TODO: Define ability behavior methods
-    // Consider:
-    // - String getName()
-    // - int getDamage()
-    // - String getDescription()
-    // - Ability clone()  <-- IMPORTANT for deep copying!
+    enum Type {
+        DAMAGE, BUFF, DEBUFF, ULTIMATE
+    }
+
+    String getName();
+
+    int getDamage();
+
+    String getDescription();
+
+    Type getType();
+
+    /**
+     * Creates a deep copy of this ability. Required for Prototype pattern
+     * when cloning enemies — cloned enemies must have independent ability instances.
+     */
+    Ability clone();
 
 }
