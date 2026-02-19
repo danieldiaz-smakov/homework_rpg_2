@@ -130,23 +130,51 @@ public class DragonBoss implements Enemy {
         this.wingspan = wingspan;
     }
 
-    // TODO: Implement methods from Enemy interface
-
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public int getHealth() {
         return health;
     }
 
+    @Override
+    public int getDamage() {
+        return damage;
+    }
+
+    @Override
+    public int getDefense() {
+        return defense;
+    }
+
+    @Override
+    public int getSpeed() {
+        return speed;
+    }
+
+    @Override
+    public List<Ability> getAbilities() {
+        return List.copyOf(abilities);
+    }
+
+    @Override
+    public LootTable getLootTable() {
+        return lootTable;
+    }
+
+    @Override
     public void displayInfo() {
         System.out.println("=== " + name + " (Dragon Boss) ===");
         System.out.println("Health: " + health + " | Damage: " + damage
                 + " | Defense: " + defense + " | Speed: " + speed);
         System.out.println("Element: " + element);
         System.out.println("Abilities (" + abilities.size() + "):");
-        // TODO: Display each ability's details
+        for (Ability a : abilities) {
+            System.out.println("  - " + a.getName() + " (" + a.getType() + "): " + a.getDescription());
+        }
         System.out.println("Boss Phases: " + phases.size());
         for (Map.Entry<Integer, Integer> phase : phases.entrySet()) {
             System.out.println("  Phase " + phase.getKey()
@@ -156,10 +184,24 @@ public class DragonBoss implements Enemy {
         System.out.println("Can Fly: " + canFly
                 + " | Breath Attack: " + hasBreathAttack
                 + " | Wingspan: " + wingspan);
-        // TODO: Display loot table
+        if (lootTable != null) {
+            System.out.println("Loot: " + lootTable.getLootInfo());
+        }
     }
 
-    // TODO: Implement clone() for Prototype pattern
+    @Override
+    public Enemy clone() {
+        List<Ability> clonedAbilities = new ArrayList<>();
+        for (Ability a : abilities) {
+            clonedAbilities.add(a.clone());
+        }
+        Map<Integer, Integer> clonedPhases = new HashMap<>(phases);
+        LootTable clonedLoot = lootTable != null ? lootTable.clone() : null;
+        return new DragonBoss(name, health, damage, defense, speed, element,
+                clonedAbilities,
+                phases.getOrDefault(1, 0), phases.getOrDefault(2, 0), phases.getOrDefault(3, 0),
+                clonedLoot, aiBehavior, canFly, hasBreathAttack, wingspan);
+    }
     // DragonBoss has MANY fields that need deep copying:
     //   - abilities (List<Ability>) → deep copy each ability
     //   - phases (Map<Integer, Integer>) → copy the map
