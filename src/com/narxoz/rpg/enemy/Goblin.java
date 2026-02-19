@@ -46,12 +46,9 @@ import java.util.ArrayList;
  *     Enemy elite = template.clone();
  *     // modify elite's stats to 2x
  *
- * TODO: Implement the clone() method with DEEP COPY.
- * TODO: Create similar basic enemies: Skeleton, Orc, etc.
- * TODO: Consider what needs deep vs shallow copy here.
- *   - Primitive stats (health, damage) → shallow copy is fine
- *   - Ability list → MUST be deep copied!
- *   - LootTable → MUST be deep copied!
+ * Part 3.1 (Prototype): clone() выполняет глубокое копирование:
+ * примитивы копируются напрямую, список способностей — новый список с клонами каждой способности,
+ * лут-таблица — через clone(). Изменение клона не затрагивает оригинал.
  */
 public class Goblin implements Enemy {
 
@@ -126,6 +123,11 @@ public class Goblin implements Enemy {
         }
     }
 
+    /**
+     * Part 3.1 — глубокое копирование (Prototype).
+     * Примитивы копируются напрямую; список способностей и лут — новые объекты/клоны,
+     * чтобы изменение клона не влияло на оригинал.
+     */
     @Override
     public Enemy clone() {
         Goblin copy = new Goblin(this.name);
@@ -141,7 +143,7 @@ public class Goblin implements Enemy {
         return copy;
     }
 
-    // TODO: Add helper methods for Prototype variant creation
+    // TODO: Add helper methods for Prototype variant creation (multiplyStats, addAbility, etc.)
     // Consider methods like:
     // - void multiplyStats(double multiplier) — for Elite/Champion variants
     // - void addAbility(Ability ability) — for enhanced variants

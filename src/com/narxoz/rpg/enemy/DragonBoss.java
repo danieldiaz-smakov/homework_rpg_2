@@ -189,6 +189,12 @@ public class DragonBoss implements Enemy {
         }
     }
 
+    /**
+     * Part 3.1 — глубокое копирование (Prototype).
+     * Примитивы — прямая копия; abilities — новый список с клоном каждой способности;
+     * phases — новая карта с теми же записями; lootTable — clone().
+     * Изменение клона не затрагивает оригинал.
+     */
     @Override
     public Enemy clone() {
         List<Ability> clonedAbilities = new ArrayList<>();
@@ -202,16 +208,8 @@ public class DragonBoss implements Enemy {
                 phases.getOrDefault(1, 0), phases.getOrDefault(2, 0), phases.getOrDefault(3, 0),
                 clonedLoot, aiBehavior, canFly, hasBreathAttack, wingspan);
     }
-    // DragonBoss has MANY fields that need deep copying:
-    //   - abilities (List<Ability>) → deep copy each ability
-    //   - phases (Map<Integer, Integer>) → copy the map
-    //   - lootTable → deep copy
-    //   - primitive fields → direct copy
-    //
-    // This is more complex than Goblin.clone()!
-    // That's the challenge of Prototype with complex objects.
 
-    // TODO: Add helper methods for variant creation
+    // TODO: Add helper methods for variant creation (setElement, multiplyStats) if needed
     // - void setElement(String element) — for elemental variants
     // - void multiplyStats(double multiplier) — for difficulty tiers
 

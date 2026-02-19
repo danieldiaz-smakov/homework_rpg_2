@@ -86,6 +86,11 @@ public class BasicEnemy implements Enemy {
         }
     }
 
+    /**
+     * Part 3.1 — глубокое копирование (Prototype).
+     * Примитивы копируются в конструктор; abilities — новый список с клоном каждой способности;
+     * lootTable — clone(). Изменение клона не влияет на оригинал.
+     */
     @Override
     public Enemy clone() {
         List<Ability> clonedAbilities = new ArrayList<>();
