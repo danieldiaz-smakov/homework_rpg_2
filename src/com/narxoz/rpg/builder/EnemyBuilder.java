@@ -6,14 +6,7 @@ import com.narxoz.rpg.loot.LootTable;
 
 import java.util.List;
 
-/**
- * Интерфейс билдера врагов (паттерн Builder).
- * Fluent-интерфейс: каждый сеттер возвращает this для цепочки вызовов.
- * Конкретные билдеры (BasicEnemyBuilder, BossEnemyBuilder) собирают разные типы врагов.
- *
- * Factory Method: метод build() — фабричный метод, создающий продукт (Enemy).
- * Разные билдеры возвращают разные реализации (BasicEnemy, DragonBoss).
- */
+/** Билдер врагов. Fluent-интерфейс, build() создаёт Enemy. */
 public interface EnemyBuilder {
 
     EnemyBuilder setName(String name);
@@ -44,12 +37,5 @@ public interface EnemyBuilder {
 
     EnemyBuilder setWingspan(int wingspan);
 
-    /**
-     * Валидирует обязательные поля и создаёт врага.
-     * Обязательно: name не null/пустой, health > 0.
-     *
-     * @return собранный враг (BasicEnemy или DragonBoss)
-     * @throws IllegalStateException если валидация не прошла
-     */
     Enemy build();
 }

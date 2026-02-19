@@ -189,12 +189,6 @@ public class DragonBoss implements Enemy {
         }
     }
 
-    /**
-     * Part 3.1 — глубокое копирование (Prototype).
-     * Примитивы — прямая копия; abilities — новый список с клоном каждой способности;
-     * phases — новая карта с теми же записями; lootTable — clone().
-     * Изменение клона не затрагивает оригинал.
-     */
     @Override
     public Enemy clone() {
         List<Ability> clonedAbilities = new ArrayList<>();

@@ -46,9 +46,6 @@ import java.util.ArrayList;
  *     Enemy elite = template.clone();
  *     // modify elite's stats to 2x
  *
- * Part 3.1 (Prototype): clone() выполняет глубокое копирование:
- * примитивы копируются напрямую, список способностей — новый список с клонами каждой способности,
- * лут-таблица — через clone(). Изменение клона не затрагивает оригинал.
  */
 public class Goblin implements Enemy {
 
@@ -123,11 +120,6 @@ public class Goblin implements Enemy {
         }
     }
 
-    /**
-     * Part 3.1 — глубокое копирование (Prototype).
-     * Примитивы копируются напрямую; список способностей и лут — новые объекты/клоны,
-     * чтобы изменение клона не влияло на оригинал.
-     */
     @Override
     public Enemy clone() {
         Goblin copy = new Goblin(this.name);

@@ -9,10 +9,7 @@ import com.narxoz.rpg.loot.ShadowLootTable;
 
 import java.util.List;
 
-/**
- * Конкретная фабрика компонентов темы «Тень».
- * Гарантирует согласованность: только теневые способности, теневой лут и тактический AI.
- */
+/** Фабрика теневых компонентов. */
 public class ShadowComponentFactory implements EnemyComponentFactory {
 
     @Override

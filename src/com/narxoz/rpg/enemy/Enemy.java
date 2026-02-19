@@ -76,10 +76,6 @@ public interface Enemy {
 
     void displayInfo();
 
-    /**
-     * Глубокое копирование для Prototype. Клон не должен разделять
-     * с оригиналом списки способностей и лут-таблицу.
-     */
     Enemy clone();
 
 }

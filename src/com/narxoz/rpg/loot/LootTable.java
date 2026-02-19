@@ -44,10 +44,6 @@ public interface LootTable {
 
     String getLootInfo();
 
-    /**
-     * Creates a deep copy of this loot table. Required for Prototype pattern
-     * when cloning enemies — cloned enemies must have independent loot tables.
-     */
     LootTable clone();
 
 }

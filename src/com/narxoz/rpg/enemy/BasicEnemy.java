@@ -7,11 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Простой враг: минёры, гоблины, скелеты, орки.
- * Создаётся через BasicEnemyBuilder. Содержит только базовые статы и компоненты
- * (без фаз босса, полёта и т.д.). После сборки объект неизменяем (нет публичных сеттеров).
- */
+/** Простой враг (минёры, гоблины). Собирается через BasicEnemyBuilder. */
 public class BasicEnemy implements Enemy {
 
     private final String name;
@@ -22,10 +18,6 @@ public class BasicEnemy implements Enemy {
     private final List<Ability> abilities;
     private final LootTable lootTable;
 
-    /**
-     * Конструктор для вызова из BasicEnemyBuilder. Копирует список способностей
-     * и сохраняет ссылку на лут (лут-таблица сама по себе неизменяема при использовании через фабрику).
-     */
     public BasicEnemy(String name, int health, int damage, int defense, int speed,
                      List<Ability> abilities, LootTable lootTable) {
         this.name = name;
@@ -86,11 +78,6 @@ public class BasicEnemy implements Enemy {
         }
     }
 
-    /**
-     * Part 3.1 — глубокое копирование (Prototype).
-     * Примитивы копируются в конструктор; abilities — новый список с клоном каждой способности;
-     * lootTable — clone(). Изменение клона не влияет на оригинал.
-     */
     @Override
     public Enemy clone() {
         List<Ability> clonedAbilities = new ArrayList<>();

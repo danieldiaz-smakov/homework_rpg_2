@@ -8,11 +8,7 @@ import com.narxoz.rpg.loot.LootTable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Билдер простых врагов (гоблины, скелеты, орки).
- * Собирает только базовые статы и компоненты; методы, специфичные для босса
- * (addPhase, setCanFly и т.д.), игнорируются и просто возвращают this.
- */
+/** Билдер простых врагов. */
 public class BasicEnemyBuilder implements EnemyBuilder {
 
     private String name;

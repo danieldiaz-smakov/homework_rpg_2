@@ -42,10 +42,6 @@ public interface Ability {
 
     Type getType();
 
-    /**
-     * Creates a deep copy of this ability. Required for Prototype pattern
-     * when cloning enemies — cloned enemies must have independent ability instances.
-     */
     Ability clone();
 
 }

@@ -10,11 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Билдер сложных боссов (драконы, лорды демонов).
- * Поддерживает фазы, элемент, AI, полёт, дыхание, размах крыльев.
- * Factory Method: build() возвращает DragonBoss.
- */
+/** Билдер боссов (драконы и т.д.). */
 public class BossEnemyBuilder implements EnemyBuilder {
 
     private String name;

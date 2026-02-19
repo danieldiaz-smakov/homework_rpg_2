@@ -1,9 +1,6 @@
 package com.narxoz.rpg.combat;
 
-/**
- * Base class for abilities with common fields and clone support.
- * Concrete abilities extend this and implement clone() for Prototype pattern.
- */
+/** Базовая реализация способности с общими полями. */
 public abstract class AbstractAbility implements Ability {
 
     private final String name;

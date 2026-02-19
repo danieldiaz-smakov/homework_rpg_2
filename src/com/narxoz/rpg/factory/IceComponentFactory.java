@@ -9,10 +9,7 @@ import com.narxoz.rpg.loot.LootTable;
 
 import java.util.List;
 
-/**
- * Конкретная фабрика компонентов темы «Лёд».
- * Гарантирует согласованность: только ледяные способности, ледяной лут и оборонительный AI.
- */
+/** Фабрика ледяных компонентов. */
 public class IceComponentFactory implements EnemyComponentFactory {
 
     @Override

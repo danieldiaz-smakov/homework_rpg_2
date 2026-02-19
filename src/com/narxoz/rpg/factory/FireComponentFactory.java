@@ -9,11 +9,7 @@ import com.narxoz.rpg.loot.LootTable;
 
 import java.util.List;
 
-/**
- * Конкретная фабрика компонентов темы «Огонь».
- * Гарантирует согласованность: только огненные способности, огненный лут и агрессивный AI.
- * Использование одной фабрики исключает смешивание с другими темами (например, лёд).
- */
+/** Фабрика огненных компонентов (способности, лут, AI). */
 public class FireComponentFactory implements EnemyComponentFactory {
 
     @Override
