@@ -32,14 +32,22 @@ package com.narxoz.rpg.loot;
  * - String getLootInfo()
  * - LootTable clone()   <-- Critical for Prototype pattern!
  */
+import java.util.List;
+
 public interface LootTable {
 
-    // TODO: Define loot table behavior methods
-    // Consider:
-    // - List<String> getItems()
-    // - int getGoldDrop()
-    // - int getExperienceDrop()
-    // - String getLootInfo()
-    // - LootTable clone()  <-- IMPORTANT for deep copying!
+    List<String> getItems();
+
+    int getGoldDrop();
+
+    int getExperienceDrop();
+
+    String getLootInfo();
+
+    /**
+     * Creates a deep copy of this loot table. Required for Prototype pattern
+     * when cloning enemies — cloned enemies must have independent loot tables.
+     */
+    LootTable clone();
 
 }
