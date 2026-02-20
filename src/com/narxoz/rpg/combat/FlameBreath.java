@@ -1,7 +1,7 @@
 package com.narxoz.rpg.combat;
 
 /** Fire theme: AoE damage + burn. */
-public class FlameBreath extends AbstractAbility {
+public class FlameBreath extends Ability {
 
     public FlameBreath() {
         super("Flame Breath", 40, "Deals fire damage in a cone and applies burn", Ability.Type.DAMAGE);

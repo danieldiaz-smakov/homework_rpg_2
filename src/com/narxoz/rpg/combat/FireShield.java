@@ -1,7 +1,7 @@
 package com.narxoz.rpg.combat;
 
 /** Fire theme: defensive buff. */
-public class FireShield extends AbstractAbility {
+public class FireShield extends Ability {
 
     public FireShield() {
         super("Fire Shield", 0, "Raises fire resistance and reflects part of melee damage", Ability.Type.BUFF);

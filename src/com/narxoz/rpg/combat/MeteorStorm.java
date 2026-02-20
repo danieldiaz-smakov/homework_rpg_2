@@ -1,7 +1,7 @@
 package com.narxoz.rpg.combat;
 
 /** Fire theme: ultimate, high AoE damage. */
-public class MeteorStorm extends AbstractAbility {
+public class MeteorStorm extends Ability {
 
     public MeteorStorm() {
         super("Meteor Storm", 120, "Calls down meteors in a large area", Ability.Type.ULTIMATE);

@@ -1,7 +1,7 @@
 package com.narxoz.rpg.combat;
 
 /** Shadow theme: high single-target damage + blind. */
-public class ShadowStrike extends AbstractAbility {
+public class ShadowStrike extends Ability {
 
     public ShadowStrike() {
         super("Shadow Strike", 55, "Deals heavy shadow damage and may blind the target", Ability.Type.DAMAGE);

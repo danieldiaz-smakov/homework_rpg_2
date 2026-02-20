@@ -1,7 +1,7 @@
 package com.narxoz.rpg.combat;
 
 /** Ice theme: defensive buff. */
-public class IceShield extends AbstractAbility {
+public class IceShield extends Ability {
 
     public IceShield() {
         super("Ice Shield", 0, "Creates a barrier that absorbs damage and can freeze attackers", Ability.Type.BUFF);

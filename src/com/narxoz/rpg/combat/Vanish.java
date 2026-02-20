@@ -1,7 +1,7 @@
 package com.narxoz.rpg.combat;
 
 /** Shadow theme: stealth/evasion. */
-public class Vanish extends AbstractAbility {
+public class Vanish extends Ability {
 
     public Vanish() {
         super("Vanish", 0, "Enters stealth, greatly increasing evasion", Ability.Type.DEBUFF);

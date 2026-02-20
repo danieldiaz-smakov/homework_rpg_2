@@ -1,7 +1,7 @@
 package com.narxoz.rpg.combat;
 
 /** Shadow theme: ultimate, AoE damage. */
-public class DarkNova extends AbstractAbility {
+public class DarkNova extends Ability {
 
     public DarkNova() {
         super("Dark Nova", 110, "Releases dark energy in all directions", Ability.Type.ULTIMATE);

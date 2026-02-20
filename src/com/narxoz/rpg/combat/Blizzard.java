@@ -1,7 +1,7 @@
 package com.narxoz.rpg.combat;
 
 /** Ice theme: ultimate, AoE damage. */
-public class Blizzard extends AbstractAbility {
+public class Blizzard extends Ability {
 
     public Blizzard() {
         super("Blizzard", 100, "Summons a blizzard that damages and slows all in area", Ability.Type.ULTIMATE);
