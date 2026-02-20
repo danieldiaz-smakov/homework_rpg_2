@@ -1,7 +1,8 @@
 package com.narxoz.rpg;
 
-import com.narxoz.rpg.builder.BasicEnemyBuilder;
-import com.narxoz.rpg.builder.BossEnemyBuilder;
+import com.narxoz.rpg.builder.DragonBossBuilder;
+import com.narxoz.rpg.builder.GoblinBuilder;
+import com.narxoz.rpg.builder.SkeletonBuilder;
 import com.narxoz.rpg.builder.EnemyDirector;
 import com.narxoz.rpg.combat.Ability;
 import com.narxoz.rpg.combat.FrostBreath;
@@ -56,8 +57,8 @@ public class Main {
         System.out.println("PART 2: BUILDER - Complex Enemy Construction");
         System.out.println("============================================\n");
 
-        // Сложный босс через BossEnemyBuilder
-        Enemy fireDragon = new BossEnemyBuilder()
+        // Сложный босс через DragonBossBuilder
+        Enemy fireDragon = new DragonBossBuilder()
                 .setName("Ancient Fire Dragon")
                 .setHealth(50000)
                 .setDamage(500)
@@ -75,27 +76,35 @@ public class Main {
                 .setWingspan(25)
                 .build();
 
-        System.out.println("Босс через BossEnemyBuilder:");
+        System.out.println("Босс через DragonBossBuilder:");
         fireDragon.displayInfo();
         System.out.println();
 
-        // Простой враг через BasicEnemyBuilder
-        Enemy iceMinion = new BasicEnemyBuilder()
-                .setName("Ice Minion")
-                .setHealth(100)
-                .setDamage(15)
-                .setDefense(5)
-                .setSpeed(30)
+        // Гоблин через GoblinBuilder
+        Enemy iceGoblin = new GoblinBuilder()
+                .setName("Ice Goblin")
+                .setHealth(120)
                 .setAbilities(iceFactory.createAbilities())
                 .setLootTable(iceFactory.createLootTable())
                 .build();
 
-        System.out.println("Простой враг через BasicEnemyBuilder:");
-        iceMinion.displayInfo();
+        System.out.println("Goblin через GoblinBuilder:");
+        iceGoblin.displayInfo();
+        System.out.println();
+
+        // Скелет через SkeletonBuilder
+        Enemy iceSkeleton = new SkeletonBuilder()
+                .setName("Ice Skeleton")
+                .setAbilities(iceFactory.createAbilities())
+                .setLootTable(iceFactory.createLootTable())
+                .build();
+
+        System.out.println("Skeleton через SkeletonBuilder (дефолтные статы):");
+        iceSkeleton.displayInfo();
         System.out.println();
 
         // Director с пресетами
-        EnemyDirector bossDirector = new EnemyDirector(BossEnemyBuilder::new);
+        EnemyDirector bossDirector = new EnemyDirector(DragonBossBuilder::new);
         Enemy raidBoss = bossDirector.createRaidBoss(shadowFactory);
 
         System.out.println("Рейд-босс через Director:");
@@ -173,7 +182,7 @@ public class Main {
         System.out.println("Step 1: Shadow Factory создаёт компоненты");
 
         // 2. Builder собирает Demon Lord
-        Enemy demonLord = new BossEnemyBuilder()
+        Enemy demonLord = new DragonBossBuilder()
                 .setName("Demon Lord")
                 .setHealth(80000)
                 .setDamage(800)
@@ -220,7 +229,7 @@ public class Main {
         System.out.println("============================================");
         System.out.println();
         System.out.println("Abstract Factory: тематические семейства компонентов (Fire, Ice, Shadow)");
-        System.out.println("Builder: пошаговая сборка сложных врагов (BossEnemyBuilder, BasicEnemyBuilder)");
+        System.out.println("Builder: пошаговая сборка врагов (GoblinBuilder, SkeletonBuilder, DragonBossBuilder)");
         System.out.println("Factory Method: build() в билдерах, Director вызывает его полиморфно");
         System.out.println("Prototype: клонирование шаблонов для быстрого создания вариантов");
         System.out.println();
@@ -228,7 +237,7 @@ public class Main {
         // Расширяемость (5.2)
         System.out.println("--- Расширяемость ---");
         System.out.println("Добавить тему Nature: создать NatureComponentFactory (implements EnemyComponentFactory)");
-        System.out.println("Добавить врага Lich: создать класс Lich (implements Enemy) + LichBuilder если нужно");
+        System.out.println("Добавить врага Lich: создать класс Lich (extends Enemy) + LichBuilder если нужно");
         System.out.println("Добавить Mythic-уровень: registry.createFromTemplate() + multiplyStats(20.0)");
 
         System.out.println("\n=== Demo Complete ===");
