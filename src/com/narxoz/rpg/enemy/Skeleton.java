@@ -3,51 +3,11 @@ package com.narxoz.rpg.enemy;
 import com.narxoz.rpg.combat.Ability;
 import com.narxoz.rpg.loot.LootTable;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Example basic enemy implementation — a simple Goblin.
- *
- * This is provided as a REFERENCE to show enemy structure.
- * Study this implementation, then create more enemies.
- *
- * Notice:
- * - Simple stats (low health, low damage)
- * - Basic constructor (only a few parameters — no Builder needed!)
- * - This is intentionally simple to contrast with DragonBoss.java
- *
- * ============================================================
- * IMPORTANT OBSERVATION:
- * ============================================================
- *
- * A Goblin is simple: name, health, damage, defense — done.
- * A regular constructor works fine here:
- *     new Goblin("Forest Goblin")
- *
- * But look at DragonBoss.java... THAT'S where Builder shines!
- * Simple objects don't need Builder. Complex objects do.
- * Knowing WHEN to use a pattern is as important as knowing HOW.
- *
- * ============================================================
- * PROTOTYPE PATTERN NOTE:
- * ============================================================
- *
- * Goblin is a GREAT candidate for Prototype pattern!
- * Imagine you need 50 goblins for a dungeon. Instead of:
- *     new Goblin("Goblin 1"), new Goblin("Goblin 2"), ...
- *
- * You can:
- *     Goblin template = new Goblin("Goblin");
- *     Enemy goblin1 = template.clone();  // Fast!
- *     Enemy goblin2 = template.clone();  // Fast!
- *
- * And for variants:
- *     Enemy elite = template.clone();
- *     // modify elite's stats to 2x
- *
- */
-public class Goblin implements Enemy {
+/** Скелет — базовый враг для Prototype. */
+public class Skeleton implements Enemy {
 
     private String name;
     private int health;
@@ -57,18 +17,13 @@ public class Goblin implements Enemy {
     private List<Ability> abilities;
     private LootTable lootTable;
 
-    // TODO: Add more fields as needed (element, AI behavior, etc.)
-
-    public Goblin(String name) {
+    public Skeleton(String name) {
         this.name = name;
-        // Goblin stats: weak but fast
-        this.health = 100;
-        this.damage = 15;
-        this.defense = 5;
-        this.speed = 35;
+        this.health = 80;
+        this.damage = 20;
+        this.defense = 10;
+        this.speed = 25;
         this.abilities = new ArrayList<>();
-        // TODO: Initialize with default abilities
-        // TODO: Initialize with default loot table
     }
 
     @Override
@@ -108,7 +63,7 @@ public class Goblin implements Enemy {
 
     @Override
     public void displayInfo() {
-        System.out.println("=== " + name + " (Goblin) ===");
+        System.out.println("=== " + name + " (Skeleton) ===");
         System.out.println("Health: " + health + " | Damage: " + damage
                 + " | Defense: " + defense + " | Speed: " + speed);
         System.out.println("Abilities: " + abilities.size());
@@ -122,7 +77,7 @@ public class Goblin implements Enemy {
 
     @Override
     public Enemy clone() {
-        Goblin copy = new Goblin(this.name);
+        Skeleton copy = new Skeleton(this.name);
         copy.health = this.health;
         copy.damage = this.damage;
         copy.defense = this.defense;
@@ -135,7 +90,7 @@ public class Goblin implements Enemy {
         return copy;
     }
 
-    // --- Методы для создания вариантов (Prototype) ---
+    // --- Методы для создания вариантов ---
 
     public void setName(String name) {
         this.name = name;

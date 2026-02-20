@@ -203,8 +203,44 @@ public class DragonBoss implements Enemy {
                 clonedLoot, aiBehavior, canFly, hasBreathAttack, wingspan);
     }
 
-    // TODO: Add helper methods for variant creation (setElement, multiplyStats) if needed
-    // - void setElement(String element) — for elemental variants
-    // - void multiplyStats(double multiplier) — for difficulty tiers
+    // --- Методы для создания вариантов (Prototype) ---
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setElement(String element) {
+        this.element = element;
+    }
+
+    public void multiplyStats(double multiplier) {
+        this.health = (int) (this.health * multiplier);
+        this.damage = (int) (this.damage * multiplier);
+        this.defense = (int) (this.defense * multiplier);
+        this.speed = (int) (this.speed * multiplier);
+        for (Integer phase : phases.keySet()) {
+            phases.put(phase, (int) (phases.get(phase) * multiplier));
+        }
+    }
+
+    public void addAbility(Ability ability) {
+        if (ability != null) {
+            this.abilities.add(ability);
+        }
+    }
+
+    public void setAbilities(List<Ability> abilities) {
+        this.abilities.clear();
+        if (abilities != null) {
+            this.abilities.addAll(abilities);
+        }
+    }
+
+    public void setLootTable(LootTable lootTable) {
+        this.lootTable = lootTable;
+    }
+
+    public void setAiBehavior(String aiBehavior) {
+        this.aiBehavior = aiBehavior;
+    }
 }
