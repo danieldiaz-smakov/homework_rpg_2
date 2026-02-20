@@ -25,11 +25,8 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("=== RPG Enemy System - Creational Patterns Capstone ===\n");
+        System.out.println("=== RPG Enemy System \n");
 
-        // ============================================================
-        // PART 1: ABSTRACT FACTORY
-        // ============================================================
         System.out.println("============================================");
         System.out.println("PART 1: ABSTRACT FACTORY - Themed Components");
         System.out.println("============================================\n");
@@ -47,12 +44,6 @@ public class Main {
         System.out.println("Shadow Factory:");
         printFactoryComponents(shadowFactory);
 
-        System.out.println(">>> Abstract Factory гарантирует: одна фабрика = одна тема.");
-        System.out.println(">>> Fire-фабрика не может выдать Ice-лут.\n");
-
-        // ============================================================
-        // PART 2: BUILDER
-        // ============================================================
         System.out.println("============================================");
         System.out.println("PART 2: BUILDER - Complex Enemy Construction");
         System.out.println("============================================\n");
@@ -111,12 +102,6 @@ public class Main {
         raidBoss.displayInfo();
         System.out.println();
 
-        System.out.println(">>> Builder: пошаговая сборка вместо 15-параметрового конструктора.");
-        System.out.println(">>> Director: готовые пресеты (minion, elite, miniBoss, raidBoss).\n");
-
-        // ============================================================
-        // PART 3: PROTOTYPE
-        // ============================================================
         System.out.println("============================================");
         System.out.println("PART 3: PROTOTYPE - Enemy Cloning & Variants");
         System.out.println("============================================\n");
@@ -155,7 +140,6 @@ public class Main {
         System.out.println("--- Проверка глубокого копирования ---");
         System.out.println("У шаблона Goblin способностей: " + baseGoblin.getAbilities().size());
         System.out.println("У Champion Goblin способностей: " + championGoblin.getAbilities().size());
-        System.out.println(">>> Шаблон не изменился — глубокое копирование работает!\n");
 
         // Варианты дракона
         DragonBoss iceDragon = (DragonBoss) registry.createFromTemplate("fire-dragon");
@@ -169,11 +153,7 @@ public class Main {
         iceDragon.displayInfo();
         System.out.println();
 
-        System.out.println(">>> Prototype: клонируем шаблон, модифицируем — быстрее чем билдить заново.\n");
 
-        // ============================================================
-        // PART 4: ALL PATTERNS TOGETHER
-        // ============================================================
         System.out.println("============================================");
         System.out.println("PART 4: ALL PATTERNS WORKING TOGETHER");
         System.out.println("============================================\n");
@@ -221,26 +201,6 @@ public class Main {
         archDemon.displayInfo();
         System.out.println();
 
-        // ============================================================
-        // SUMMARY
-        // ============================================================
-        System.out.println("============================================");
-        System.out.println("PATTERN SUMMARY");
-        System.out.println("============================================");
-        System.out.println();
-        System.out.println("Abstract Factory: тематические семейства компонентов (Fire, Ice, Shadow)");
-        System.out.println("Builder: пошаговая сборка врагов (GoblinBuilder, SkeletonBuilder, DragonBossBuilder)");
-        System.out.println("Factory Method: build() в билдерах, Director вызывает его полиморфно");
-        System.out.println("Prototype: клонирование шаблонов для быстрого создания вариантов");
-        System.out.println();
-
-        // Расширяемость (5.2)
-        System.out.println("--- Расширяемость ---");
-        System.out.println("Добавить тему Nature: создать NatureComponentFactory (implements EnemyComponentFactory)");
-        System.out.println("Добавить врага Lich: создать класс Lich (extends Enemy) + LichBuilder если нужно");
-        System.out.println("Добавить Mythic-уровень: registry.createFromTemplate() + multiplyStats(20.0)");
-
-        System.out.println("\n=== Demo Complete ===");
     }
 
     private static void printFactoryComponents(EnemyComponentFactory factory) {
