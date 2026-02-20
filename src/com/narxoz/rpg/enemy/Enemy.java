@@ -3,79 +3,147 @@ package com.narxoz.rpg.enemy;
 import com.narxoz.rpg.combat.Ability;
 import com.narxoz.rpg.loot.LootTable;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-/**
- * Base interface for all enemies in the RPG system.
- *
- * Every enemy — from a lowly Goblin to an Ancient Dragon — shares
- * certain characteristics: they have stats, abilities, and loot.
- * But HOW they are created varies dramatically.
- *
- * ============================================================
- * WHY THIS INTERFACE MATTERS FOR DESIGN PATTERNS:
- * ============================================================
- *
- * Builder Pattern:
- *   Complex enemies have many fields (stats, abilities, phases, loot, AI).
- *   The Builder pattern constructs enemies step-by-step instead of
- *   cramming everything into one monstrous constructor.
- *   → Think: Should Enemy be immutable once built? (Hint: YES!)
- *
- * Prototype Pattern:
- *   This interface includes a clone() method. Enemies must be CLONABLE
- *   so we can create variants efficiently:
- *     Base Goblin → Elite Goblin → Goblin Champion → Goblin King
- *   → Think: What needs DEEP copying? What can be SHALLOW copied?
- *
- * Factory Method:
- *   The Builder's build() method IS a factory method — it produces
- *   Enemy objects. Different builders produce different enemy types.
- *
- * Abstract Factory:
- *   Enemy components (abilities, loot) come from themed factories.
- *   A FireComponentFactory guarantees all components match the fire theme.
- *
- * ============================================================
- * YOUR TASKS:
- * ============================================================
- *
- * TODO: Decide — should this be an interface or abstract class?
- *   - Interface: If implementations are very different
- *   - Abstract class: If you want shared fields (name, health, etc.)
- *   Hint: An abstract class with shared stat fields might be cleaner.
- *
- * TODO: Define the core enemy contract.
- *   Every enemy should provide:
- *   - Basic stats (health, damage, defense, speed)
- *   - Abilities they can use
- *   - Loot they drop when defeated
- *   - Information display (for the demo)
- *   - Clone method (for Prototype pattern)
- *
- * TODO: Think about immutability.
- *   - Once built by the Builder, should enemy stats change?
- *   - Should clone() return a mutable or immutable copy?
- *   - How do you allow Prototype to modify cloned stats?
- */
-public interface Enemy {
+/** Базовый класс для всех врагов. */
+public abstract class Enemy {
 
-    String getName();
+    protected String name;
+    protected int health;
+    protected int damage;
+    protected int defense;
+    protected int speed;
+    protected List<Ability> abilities;
+    protected LootTable lootTable;
 
-    int getHealth();
+    protected Enemy(String name, int health, int damage, int defense, int speed) {
+        this.name = name;
+        this.health = health;
+        this.damage = damage;
+        this.defense = defense;
+        this.speed = speed;
+        this.abilities = new ArrayList<>();
+    }
 
-    int getDamage();
+    protected Enemy(String name, int health, int damage, int defense, int speed,
+                    List<Ability> abilities, LootTable lootTable) {
+        this.name = name;
+        this.health = health;
+        this.damage = damage;
+        this.defense = defense;
+        this.speed = speed;
+        this.abilities = abilities != null ? new ArrayList<>(abilities) : new ArrayList<>();
+        this.lootTable = lootTable;
+    }
 
-    int getDefense();
+    /** Copy constructor для clone(). */
+    protected Enemy(Enemy other) {
+        this.name = other.name;
+        this.health = other.health;
+        this.damage = other.damage;
+        this.defense = other.defense;
+        this.speed = other.speed;
+        this.abilities = new ArrayList<>();
+        for (Ability a : other.abilities) {
+            this.abilities.add(a.clone());
+        }
+        this.lootTable = other.lootTable != null ? other.lootTable.clone() : null;
+    }
 
-    int getSpeed();
+    // --- Getters ---
 
-    List<Ability> getAbilities();
+    public String getName() {
+        return name;
+    }
 
-    LootTable getLootTable();
+    public int getHealth() {
+        return health;
+    }
 
-    void displayInfo();
+    public int getDamage() {
+        return damage;
+    }
 
-    Enemy clone();
+    public int getDefense() {
+        return defense;
+    }
 
+    public int getSpeed() {
+        return speed;
+    }
+
+    public List<Ability> getAbilities() {
+        return Collections.unmodifiableList(abilities);
+    }
+
+    public LootTable getLootTable() {
+        return lootTable;
+    }
+
+    // --- Display ---
+
+    public void displayInfo() {
+        System.out.println("=== " + name + " ===");
+        System.out.println("Health: " + health + " | Damage: " + damage
+                + " | Defense: " + defense + " | Speed: " + speed);
+        System.out.println("Abilities: " + abilities.size());
+        for (Ability a : abilities) {
+            System.out.println("  - " + a.getName() + " (" + a.getType() + "): " + a.getDescription());
+        }
+        if (lootTable != null) {
+            System.out.println("Loot: " + lootTable.getLootInfo());
+        }
+    }
+
+    // --- Prototype helper methods ---
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void multiplyStats(double multiplier) {
+        this.health = (int) (this.health * multiplier);
+        this.damage = (int) (this.damage * multiplier);
+        this.defense = (int) (this.defense * multiplier);
+        this.speed = (int) (this.speed * multiplier);
+    }
+
+    public void addAbility(Ability ability) {
+        if (ability != null) {
+            this.abilities.add(ability);
+        }
+    }
+
+    public void setAbilities(List<Ability> abilities) {
+        this.abilities.clear();
+        if (abilities != null) {
+            this.abilities.addAll(abilities);
+        }
+    }
+
+    public void setLootTable(LootTable lootTable) {
+        this.lootTable = lootTable;
+    }
+
+    // --- Clone (Prototype) ---
+
+    public abstract Enemy clone();
 }
