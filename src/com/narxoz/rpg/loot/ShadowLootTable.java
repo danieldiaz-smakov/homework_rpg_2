@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /** Shadow theme loot: Shadow Gem, Dark Essence, Shadow Rune. */
-public class ShadowLootTable extends AbstractLootTable {
+public class ShadowLootTable extends LootTable {
 
     private static final List<String> DEFAULT_ITEMS = Arrays.asList("Shadow Gem", "Dark Essence", "Shadow Rune");
 

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /** Fire theme loot: Fire Gem, Dragon Scale, Flame Rune. */
-public class FireLootTable extends AbstractLootTable {
+public class FireLootTable extends LootTable {
 
     private static final List<String> DEFAULT_ITEMS = Arrays.asList("Fire Gem", "Dragon Scale", "Flame Rune");
 

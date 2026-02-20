@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /** Ice theme loot: Ice Gem, Frost Scale, Ice Rune. */
-public class IceLootTable extends AbstractLootTable {
+public class IceLootTable extends LootTable {
 
     private static final List<String> DEFAULT_ITEMS = Arrays.asList("Ice Gem", "Frost Scale", "Ice Rune");
 

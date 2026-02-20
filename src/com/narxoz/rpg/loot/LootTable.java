@@ -1,49 +1,56 @@
 package com.narxoz.rpg.loot;
 
-/**
- * Interface for enemy loot/drop tables in the RPG system.
- *
- * Each enemy can have a loot table that determines what items they drop
- * when defeated. Loot tables are themed:
- * - Fire enemies drop fire-related items (Fire Gem, Dragon Scale)
- * - Ice enemies drop ice-related items (Ice Gem, Frost Scale)
- * - Shadow enemies drop shadow-related items (Shadow Gem, Dark Essence)
- *
- * Abstract Factory Connection:
- * Each themed EnemyComponentFactory creates a matching LootTable.
- * This guarantees Fire enemies always drop fire loot — no mixing!
- *
- * Prototype Pattern Note:
- * Loot tables must be DEEP-COPYABLE! When you clone an enemy,
- * its loot table must be an independent copy. Otherwise, modifying
- * a cloned enemy's loot will affect the original.
- *
- * TODO: Define what all loot tables have in common.
- * Think about:
- * - What items does the enemy drop?
- * - How much gold and experience are awarded?
- * - How should loot be displayed?
- * - How should loot tables be cloned?
- *
- * Consider methods like:
- * - List<String> getItems()
- * - int getGoldDrop()
- * - int getExperienceDrop()
- * - String getLootInfo()
- * - LootTable clone()   <-- Critical for Prototype pattern!
- */
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public interface LootTable {
+/** Базовый класс для лут-таблиц с deep-copy поддержкой. */
+public abstract class LootTable {
 
-    List<String> getItems();
+    private final List<String> items;
+    private final int goldDrop;
+    private final int experienceDrop;
+    private final String themeName;
 
-    int getGoldDrop();
+    protected LootTable(List<String> items, int goldDrop, int experienceDrop, String themeName) {
+        this.items = new ArrayList<>(items);
+        this.goldDrop = goldDrop;
+        this.experienceDrop = experienceDrop;
+        this.themeName = themeName;
+    }
 
-    int getExperienceDrop();
+    /** Copy constructor для clone() — deep copy списка items. */
+    protected LootTable(LootTable other) {
+        this.items = new ArrayList<>(other.items);
+        this.goldDrop = other.goldDrop;
+        this.experienceDrop = other.experienceDrop;
+        this.themeName = other.themeName;
+    }
 
-    String getLootInfo();
+    public List<String> getItems() {
+        return Collections.unmodifiableList(items);
+    }
 
-    LootTable clone();
+    public int getGoldDrop() {
+        return goldDrop;
+    }
 
+    public int getExperienceDrop() {
+        return experienceDrop;
+    }
+
+    public String getLootInfo() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[").append(themeName).append("] Items: ");
+        sb.append(String.join(", ", items));
+        sb.append(" | Gold: ").append(goldDrop);
+        sb.append(" | XP: ").append(experienceDrop);
+        return sb.toString();
+    }
+
+    protected String getThemeName() {
+        return themeName;
+    }
+
+    public abstract LootTable clone();
 }
