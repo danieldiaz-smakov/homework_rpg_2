@@ -4,38 +4,69 @@ import com.narxoz.rpg.combat.Ability;
 import com.narxoz.rpg.enemy.Enemy;
 import com.narxoz.rpg.loot.LootTable;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/** Билдер врагов. Fluent-интерфейс, build() создаёт Enemy. */
-public interface EnemyBuilder {
+/** Базовый билдер врагов. */
+public abstract class EnemyBuilder {
 
-    EnemyBuilder setName(String name);
+    protected String name;
+    protected int health;
+    protected int damage;
+    protected int defense;
+    protected int speed;
+    protected List<Ability> abilities = new ArrayList<>();
+    protected LootTable lootTable;
 
-    EnemyBuilder setHealth(int health);
+    public EnemyBuilder setName(String name) {
+        this.name = name;
+        return this;
+    }
 
-    EnemyBuilder setDamage(int damage);
+    public EnemyBuilder setHealth(int health) {
+        this.health = health;
+        return this;
+    }
 
-    EnemyBuilder setDefense(int defense);
+    public EnemyBuilder setDamage(int damage) {
+        this.damage = damage;
+        return this;
+    }
 
-    EnemyBuilder setSpeed(int speed);
+    public EnemyBuilder setDefense(int defense) {
+        this.defense = defense;
+        return this;
+    }
 
-    EnemyBuilder setElement(String element);
+    public EnemyBuilder setSpeed(int speed) {
+        this.speed = speed;
+        return this;
+    }
 
-    EnemyBuilder addAbility(Ability ability);
+    public EnemyBuilder addAbility(Ability ability) {
+        if (ability != null) {
+            this.abilities.add(ability);
+        }
+        return this;
+    }
 
-    EnemyBuilder setAbilities(List<Ability> abilities);
+    public EnemyBuilder setAbilities(List<Ability> abilities) {
+        this.abilities = abilities != null ? new ArrayList<>(abilities) : new ArrayList<>();
+        return this;
+    }
 
-    EnemyBuilder addPhase(int phaseNumber, int healthThreshold);
+    public EnemyBuilder setLootTable(LootTable lootTable) {
+        this.lootTable = lootTable;
+        return this;
+    }
 
-    EnemyBuilder setLootTable(LootTable lootTable);
+    // Boss-методы — дефолт "ничего не делать"
+    public EnemyBuilder setElement(String element) { return this; }
+    public EnemyBuilder addPhase(int phaseNumber, int healthThreshold) { return this; }
+    public EnemyBuilder setAI(String aiBehavior) { return this; }
+    public EnemyBuilder setCanFly(boolean canFly) { return this; }
+    public EnemyBuilder setHasBreathAttack(boolean hasBreathAttack) { return this; }
+    public EnemyBuilder setWingspan(int wingspan) { return this; }
 
-    EnemyBuilder setAI(String aiBehavior);
-
-    EnemyBuilder setCanFly(boolean canFly);
-
-    EnemyBuilder setHasBreathAttack(boolean hasBreathAttack);
-
-    EnemyBuilder setWingspan(int wingspan);
-
-    Enemy build();
+    public abstract Enemy build();
 }
