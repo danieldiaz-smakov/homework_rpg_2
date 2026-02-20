@@ -121,6 +121,8 @@ public class BossEnemyBuilder implements EnemyBuilder {
         return this;
     }
 
+    // Factory Method: build() создаёт конкретный продукт (DragonBoss).
+    // Director вызывает build() полиморфно, не зная какой тип Enemy вернётся.
     @Override
     public Enemy build() {
         if (name == null || name.trim().isEmpty()) {

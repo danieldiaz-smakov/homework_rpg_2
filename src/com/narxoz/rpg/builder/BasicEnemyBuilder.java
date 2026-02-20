@@ -105,6 +105,8 @@ public class BasicEnemyBuilder implements EnemyBuilder {
         return this;
     }
 
+    // Factory Method: build() создаёт конкретный продукт (BasicEnemy).
+    // Разные билдеры возвращают разные типы Enemy.
     @Override
     public Enemy build() {
         if (name == null || name.trim().isEmpty()) {
